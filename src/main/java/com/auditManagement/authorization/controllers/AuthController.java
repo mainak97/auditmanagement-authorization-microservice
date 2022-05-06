@@ -23,6 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class AuthController {
 
     @Autowired private UserRepo userRepo;
@@ -30,7 +31,6 @@ public class AuthController {
     @Autowired private AuthenticationManager authManager;
 
     @PostMapping("/getjwt")
-    @CrossOrigin()
     public Map<String, Object> getJWT(@RequestBody LoginCredentials body){
             UsernamePasswordAuthenticationToken authInputToken =
                     new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword());
@@ -42,7 +42,6 @@ public class AuthController {
     }
 
     @GetMapping("/authjwt")
-    @CrossOrigin()
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true,
     	allowEmptyValue = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     public Map<String, Object> authJWT(){
