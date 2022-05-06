@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:us-east-1:313830654669:task-definition/aws-auditmanagement-authorization-microservice:1"
+        TaskDefinition: "arn:aws:ecs:us-east-1:313830654669:task-definition/aws-auditmanagement-authorization-microservice:2"
         LoadBalancerInfo:
           ContainerName: "aws-auditmanagement-authorization-microservice"
           ContainerPort: 80
