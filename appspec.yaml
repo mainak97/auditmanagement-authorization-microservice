@@ -5,6 +5,6 @@ Resources:
       Properties:
         TaskDefinition: "arn:aws:ecs:us-east-1:313830654669:task-definition/aws-auditmanagement-authorization-microservice:1"
         LoadBalancerInfo:
-          ContainerName: "aws-auditmanagement-authorization"
+          ContainerName: "aws-auditmanagement-authorization-microservice"
           ContainerPort: 80
         PlatformVersion: "LATEST"
