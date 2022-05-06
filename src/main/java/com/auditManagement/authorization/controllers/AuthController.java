@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import com.auditManagement.authorization.security.JWTUtil;
 import io.swagger.annotations.ApiImplicitParam;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -28,15 +30,19 @@ public class AuthController {
     @Autowired private AuthenticationManager authManager;
 
     @PostMapping("/getjwt")
+    @CrossOrigin()
     public Map<String, Object> getJWT(@RequestBody LoginCredentials body){
             UsernamePasswordAuthenticationToken authInputToken =
                     new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword());
             authManager.authenticate(authInputToken);
-            String token = jwtUtil.generateToken(body.getUsername());
-            return Collections.singletonMap("jwt-token", token);
+            Map<String,Object> token = jwtUtil.generateToken(body.getUsername());
+            Map<String, Object> map = new HashMap<>(token);
+            map.put("username", body.getUsername());
+            return map;
     }
 
     @GetMapping("/authjwt")
+    @CrossOrigin()
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true,
     	allowEmptyValue = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     public Map<String, Object> authJWT(){

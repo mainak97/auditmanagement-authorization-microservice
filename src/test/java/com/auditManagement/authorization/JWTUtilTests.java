@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.auditManagement.authorization.security.JWTUtil;
 
 @SpringBootTest
-public class JWTUtilTests {
+class JWTUtilTests {
 	@Autowired
 	JWTUtil jwtUtil;
 	
@@ -19,6 +19,6 @@ public class JWTUtilTests {
 	}
 	@Test
 	void validateTokenTest() {
-		assertThat(jwtUtil.validateTokenAndRetrieveSubject(jwtUtil.generateToken("username"))).isNotNull();
+		assertThat(jwtUtil.validateTokenAndRetrieveSubject(jwtUtil.generateToken("username").get("accessToken").toString())).isNotNull();
 	}
 }
